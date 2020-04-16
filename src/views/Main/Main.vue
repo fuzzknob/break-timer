@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center items-center">
-    <div class="flex flex-col">
+    <div class="flex flex-col mb-5">
       <h5 class="text-xl">
         Next short break in...
       </h5>
