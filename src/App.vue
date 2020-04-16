@@ -1,16 +1,19 @@
 <template>
   <main
     id="app"
-    class="primary"
+    class="primary font-roboto"
   >
-    <div class="bg-base-color text-light-color h-screen">
-      <h2>Sample</h2>
-    </div>
+    <Main class="bg-base-color text-light-color h-screen" />
   </main>
 </template>
 
 <script>
+import Main from '@/views/Main'
+
 export default {
   name: 'App',
+  components: {
+    Main,
+  },
 }
 </script>
