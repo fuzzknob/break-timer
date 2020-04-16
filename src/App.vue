@@ -1,10 +1,12 @@
 <template>
-  <div
+  <main
     id="app"
-    class="h-screen"
+    class="primary"
   >
-    <h2>Sample</h2>
-  </div>
+    <div class="bg-base-color text-light-color h-screen">
+      <h2>Sample</h2>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -12,10 +14,3 @@ export default {
   name: 'App',
 }
 </script>
-
-<style>
-#app {
-  background: #202040;
-  color: #ffbd69;
-}
-</style>
