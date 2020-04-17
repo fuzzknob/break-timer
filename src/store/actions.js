@@ -6,6 +6,12 @@ import {
 } from '@/domain/Settings'
 
 export default {
+  pause({ commit }) {
+    commit('setStatus', 'PAUSED')
+  },
+  resume({ commit }) {
+    commit('setStatus', 'WORK')
+  },
   tick({ state, commit }) {
     const { status, time, successionCount } = state
     if (status === 'WORK') {

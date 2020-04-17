@@ -9,7 +9,7 @@ export default function timer(operation, time) {
   callback()
   return () => {
     if (timeOut) {
-      timeOut()
+      clearTimeout(timeOut)
     }
   }
 }

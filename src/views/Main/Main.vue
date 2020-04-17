@@ -6,9 +6,27 @@
       </h5>
       <Timer />
       <div class="flex justify-center mt-5">
-        <Button @click="start">
-          Start
-        </Button>
+        <template v-if="status === 'IDEAL'">
+          <Button
+            @click="startTimer"
+          >
+            Start
+          </Button>
+        </template>
+        <template v-else>
+          <Button
+            class="mx-2"
+            @click="status === 'PAUSED' ? resumeTimer() : pauseTimer()"
+          >
+            {{ status === 'PAUSED' ? 'Resume' : 'Pause' }}
+          </Button>
+          <Button
+            class="mx-2"
+            @click="startTimer"
+          >
+            Stop
+          </Button>
+        </template>
       </div>
     </div>
   </div>
@@ -40,14 +58,29 @@ export default {
       if (this.status === 'BREAK') {
         return 'Break end in...'
       }
+      if (this.status === 'PAUSED') {
+        return 'Timer paused'
+      }
       return 'Break Timer'
     },
   },
   methods: {
     ...mapActions([
       'tick',
+      'pause',
+      'resume',
     ]),
-    start() {
+    pauseTimer() {
+      if (this.stopTimer) {
+        this.stopTimer()
+      }
+      this.pause()
+    },
+    resumeTimer() {
+      this.resume()
+      this.startTimer()
+    },
+    startTimer() {
       this.stopTimer = intervalTimer(() => {
         this.tick()
       }, 1000)
