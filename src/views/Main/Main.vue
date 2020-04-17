@@ -6,8 +6,8 @@
       </h5>
       <Timer />
       <div class="flex justify-center mt-5">
-        <Button>
-          Pause
+        <Button @click="start">
+          Start
         </Button>
       </div>
     </div>
@@ -15,7 +15,9 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Button from '@/components/Button'
+import intervalTimer from '@/utils/Timer'
 import Timer from './components/Timer'
 
 export default {
@@ -23,6 +25,21 @@ export default {
   components: {
     Timer,
     Button,
+  },
+  data() {
+    return {
+      stopTimer: null,
+    }
+  },
+  methods: {
+    ...mapActions([
+      'tick',
+    ]),
+    start() {
+      this.stopTimer = intervalTimer(() => {
+        this.tick()
+      }, 1000)
+    },
   },
 }
 </script>
