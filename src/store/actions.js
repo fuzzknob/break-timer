@@ -6,6 +6,11 @@ import {
 } from '@/domain/Settings'
 
 export default {
+  reset({ commit }) {
+    commit('setStatus', 'IDLE')
+    commit('setSuccession', 0)
+    commit('setTime', 0)
+  },
   pause({ commit }) {
     commit('setStatus', 'PAUSED')
   },

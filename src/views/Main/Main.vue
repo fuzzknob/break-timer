@@ -6,9 +6,9 @@
       </h5>
       <Timer />
       <div class="flex justify-center mt-5">
-        <template v-if="status === 'IDEAL'">
+        <template v-if="status === 'IDLE'">
           <Button
-            @click="startTimer"
+            @click="startCounter"
           >
             Start
           </Button>
@@ -16,13 +16,13 @@
         <template v-else>
           <Button
             class="mx-2"
-            @click="status === 'PAUSED' ? resumeTimer() : pauseTimer()"
+            @click="status === 'PAUSED' ? resumeCounter() : pauseCounter()"
           >
             {{ status === 'PAUSED' ? 'Resume' : 'Pause' }}
           </Button>
           <Button
             class="mx-2"
-            @click="startTimer"
+            @click="stopCounter"
           >
             Stop
           </Button>
@@ -67,23 +67,32 @@ export default {
   methods: {
     ...mapActions([
       'tick',
+      'reset',
       'pause',
       'resume',
     ]),
-    pauseTimer() {
+    pauseCounter() {
       if (this.stopTimer) {
         this.stopTimer()
+        this.stopTimer = null
       }
       this.pause()
     },
-    resumeTimer() {
+    resumeCounter() {
       this.resume()
-      this.startTimer()
+      this.startCounter()
     },
-    startTimer() {
+    startCounter() {
       this.stopTimer = intervalTimer(() => {
         this.tick()
       }, 1000)
+    },
+    stopCounter() {
+      if (this.stopTimer) {
+        this.stopTimer()
+        this.stopTimer = null
+      }
+      this.reset()
     },
   },
 }
