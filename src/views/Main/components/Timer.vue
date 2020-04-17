@@ -33,10 +33,13 @@ export default {
     ]),
   },
   watch: {
-    time() {
-      const { minutes, seconds } = convertToMinuteSeconds(this.time)
-      this.minutesHand = this.getDigits(minutes)
-      this.secondsHand = this.getDigits(seconds)
+    time: {
+      handler() {
+        const { minutes, seconds } = convertToMinuteSeconds(this.time)
+        this.minutesHand = this.getDigits(minutes)
+        this.secondsHand = this.getDigits(seconds)
+      },
+      immediate: true,
     },
   },
   methods: {
