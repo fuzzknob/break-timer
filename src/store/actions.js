@@ -4,6 +4,7 @@ import {
   getShortBreakInterval,
   getBreakSuccession,
 } from '@/domain/Settings'
+import { notifyBreakTime, notifyResume } from '@/domain/Notifications'
 
 export default {
   reset({ commit }) {
@@ -27,8 +28,10 @@ export default {
     const { status, time, successionCount } = state
     if (status === 'WORK') {
       if (time === 0) {
+        const breakTime = successionCount <= 0 ? getLongBreakLength() : getShortBreakLength()
+        notifyBreakTime(breakTime)
         commit('setStatus', 'BREAK')
-        commit('setTime', successionCount <= 0 ? getLongBreakLength() : getShortBreakLength())
+        commit('setTime', breakTime)
         return
       }
       commit('setTime', time - 1000)
@@ -36,6 +39,7 @@ export default {
     }
     if (status === 'BREAK') {
       if (time === 0) {
+        notifyResume()
         commit('setStatus', 'WORK')
         commit('setSuccession', successionCount <= 0 ? getBreakSuccession() : successionCount - 1)
         commit('setTime', getShortBreakInterval())

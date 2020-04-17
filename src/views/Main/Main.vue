@@ -40,6 +40,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { initializeNotification } from '@/libs/Notifications'
 import Button from '@/components/Button'
 import intervalTimer from '@/utils/Timer'
 import Timer from './components/Timer'
@@ -69,6 +70,9 @@ export default {
       }
       return 'Break Timer'
     },
+  },
+  mounted() {
+    initializeNotification()
   },
   methods: {
     ...mapActions([

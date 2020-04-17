@@ -16,5 +16,6 @@ module.exports = {
     semi: ['error', 'never'],
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
+    'no-new': 'off'
   },
 };
