@@ -1,5 +1,5 @@
 export default {
   time: 0,
-  succession: 0,
+  successionCount: 0,
   status: 'IDEAL',
 }

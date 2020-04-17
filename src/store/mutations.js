@@ -6,6 +6,6 @@ export default {
     state.status = status
   },
   setSuccession(state, succession) {
-    state.succession = succession
+    state.successionCount = succession
   },
 }

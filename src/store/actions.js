@@ -11,7 +11,7 @@ export default {
     if (status === 'WORK') {
       if (time === 0) {
         commit('setStatus', 'BREAK')
-        commit('setTime', successionCount <= 1 ? getLongBreakLength() : getShortBreakLength())
+        commit('setTime', successionCount <= 0 ? getLongBreakLength() : getShortBreakLength())
         return
       }
       commit('setTime', time - 1000)
@@ -20,7 +20,7 @@ export default {
     if (status === 'BREAK') {
       if (time === 0) {
         commit('setStatus', 'WORK')
-        commit('setSuccession', successionCount <= 1 ? getBreakSuccession() : successionCount - 1)
+        commit('setSuccession', successionCount <= 0 ? getBreakSuccession() : successionCount - 1)
         commit('setTime', getShortBreakInterval())
         return
       }
