@@ -6,15 +6,21 @@
       </h5>
       <Timer />
       <div class="flex justify-center mt-5">
-        <template v-if="status === 'IDLE'">
-          <Button
-            @click="startCounter"
-          >
-            Start
-          </Button>
-        </template>
+        <Button
+          v-if="status === 'IDLE'"
+          @click="startCounter"
+        >
+          Start
+        </Button>
         <template v-else>
           <Button
+            v-if="status === 'BREAK'"
+            @click="endBreak"
+          >
+            End Break
+          </Button>
+          <Button
+            v-else
             class="mx-2"
             @click="status === 'PAUSED' ? resumeCounter() : pauseCounter()"
           >
@@ -70,6 +76,7 @@ export default {
       'reset',
       'pause',
       'resume',
+      'endBreak',
     ]),
     pauseCounter() {
       if (this.stopTimer) {

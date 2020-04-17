@@ -17,6 +17,12 @@ export default {
   resume({ commit }) {
     commit('setStatus', 'WORK')
   },
+  endBreak({ state, commit }) {
+    const { successionCount } = state
+    commit('setStatus', 'WORK')
+    commit('setSuccession', successionCount <= 0 ? getBreakSuccession() : successionCount - 1)
+    commit('setTime', getShortBreakInterval())
+  },
   tick({ state, commit }) {
     const { status, time, successionCount } = state
     if (status === 'WORK') {
