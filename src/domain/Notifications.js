@@ -1,22 +1,14 @@
 import { notify } from '@/libs/Notifications'
-import { convertToMinuteSeconds } from '@/utils'
+import { formatMsToTime, timeToText } from '@/utils'
 
 export function playNotificationSound() {
   const sound = new Audio('sounds/notification.wav')
   sound.play()
 }
 
-export function notifyBreakTime(time) {
-  const { minutes, seconds } = convertToMinuteSeconds(time)
-  let wordTime = ''
-  if (minutes) {
-    wordTime = `${minutes} minutes`
-  }
-  if (seconds) {
-    wordTime += wordTime ? ` and ${seconds} seconds` : `${seconds} seconds`
-  }
+export function notifyBreakTime(ms) {
   playNotificationSound()
-  notify(`It's time to take break for ${wordTime}.`)
+  notify(`It's time to take break for ${timeToText(formatMsToTime(ms))}.`)
 }
 
 export function notifyResume() {
