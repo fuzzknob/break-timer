@@ -114,7 +114,7 @@ export default {
     startCounter() {
       this.stopTimer = intervalTimer(() => {
         this.tick()
-      }, 100)
+      }, 1000)
     },
     stopCounter() {
       if (this.stopTimer) {
