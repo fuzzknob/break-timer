@@ -1,6 +1,13 @@
 <template>
   <div class="flex justify-center items-center">
-    <div class="flex flex-col mb-5">
+    <Results
+      v-if="isResultShown"
+      @done="handleResultDone"
+    />
+    <div
+      v-else
+      class="flex flex-col mb-5"
+    >
       <h5 class="text-xl">
         {{ message }}
       </h5>
@@ -28,7 +35,7 @@
           </Button>
           <Button
             class="mx-2"
-            @click="stopCounter"
+            @click="handleStop"
           >
             Stop
           </Button>
@@ -44,16 +51,19 @@ import { initializeNotification } from '@/libs/Notifications'
 import Button from '@/components/Button'
 import intervalTimer from '@/utils/Timer'
 import Timer from './components/Timer'
+import Results from './components/Results'
 
 export default {
   name: 'Main',
   components: {
     Timer,
     Button,
+    Results,
   },
   data() {
     return {
       stopTimer: null,
+      isResultShown: false,
     }
   },
   computed: {
@@ -82,6 +92,14 @@ export default {
       'resume',
       'endBreak',
     ]),
+    handleResultDone() {
+      this.reset()
+      this.isResultShown = false
+    },
+    handleStop() {
+      this.isResultShown = true
+      this.stopCounter()
+    },
     pauseCounter() {
       if (this.stopTimer) {
         this.stopTimer()
@@ -96,14 +114,13 @@ export default {
     startCounter() {
       this.stopTimer = intervalTimer(() => {
         this.tick()
-      }, 1000)
+      }, 100)
     },
     stopCounter() {
       if (this.stopTimer) {
         this.stopTimer()
         this.stopTimer = null
       }
-      this.reset()
     },
   },
 }

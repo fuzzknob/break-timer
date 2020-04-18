@@ -11,6 +11,10 @@ export default {
     commit('setStatus', 'IDLE')
     commit('setSuccession', 0)
     commit('setTime', 0)
+    commit('setAggregate', {
+      totalWorked: 0,
+      totalBreakTaken: 0,
+    })
   },
   pause({ commit }) {
     commit('setStatus', 'PAUSED')
@@ -35,6 +39,7 @@ export default {
         return
       }
       commit('setTime', time - 1000)
+      commit('increaseTotalWorked', 1000)
       return
     }
     if (status === 'BREAK') {
@@ -46,6 +51,7 @@ export default {
         return
       }
       commit('setTime', time - 1000)
+      commit('increaseTotalBreakTaken', 1000)
       return
     }
     commit('setStatus', 'WORK')

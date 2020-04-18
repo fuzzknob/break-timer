@@ -11,7 +11,7 @@
 <script>
 import { mapState } from 'vuex'
 import { padStart } from 'lodash'
-import { convertToMinuteSeconds } from '@/utils'
+import { formatMsToTime } from '@/utils'
 
 export default {
   name: 'Timer',
@@ -35,7 +35,7 @@ export default {
   watch: {
     time: {
       handler() {
-        const { minutes, seconds } = convertToMinuteSeconds(this.time)
+        const { minutes, seconds } = formatMsToTime(this.time)
         this.minutesHand = this.getDigits(minutes)
         this.secondsHand = this.getDigits(seconds)
       },
