@@ -2,7 +2,7 @@
   <h1 class="timer text-secondary-color font-zcool flex">
     <span class="number text-right">{{ minutesHand.firstDigit }}</span>
     <span class="number text-right">{{ minutesHand.secondDigit }}</span>
-    <span class="divider">:</span>
+    <span class="divider">{{ isBlinkerShown ? ':' : '' }}</span>
     <span class="number text-right">{{ secondsHand.firstDigit }}</span>
     <span class="number text-right">{{ secondsHand.secondDigit }}</span>
   </h1>
@@ -17,6 +17,7 @@ export default {
   name: 'Timer',
   data() {
     return {
+      isBlinkerShown: false,
       minutesHand: {
         firstDigit: 0,
         secondDigit: 0,
@@ -38,6 +39,7 @@ export default {
         const { minutes, seconds } = formatMsToTime(this.time)
         this.minutesHand = this.getDigits(minutes)
         this.secondsHand = this.getDigits(seconds)
+        this.isBlinkerShown = !this.isBlinkerShown
       },
       immediate: true,
     },
