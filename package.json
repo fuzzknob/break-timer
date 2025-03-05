@@ -1,0 +1,20 @@
+{
+  "name": "break",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "web-dev": "pnpm --filter @break/web dev",
+    "prisma-gen": "pnpm prisma generate",
+    "prisma-studio": "pnpm prisma studio --browser none",
+    "prisma-migration-gen": "pnpm prisma migrate dev",
+    "server-start": "dart --enable-asserts apps/server/bin/server.dart"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "devDependencies": {
+    "prisma": "^6.4.1"
+  }
+}

@@ -1,0 +1,65 @@
+generator client {
+  provider = "dart run orm"
+  output   = "../apps/server/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model BackgroundGif {
+  id        Int      @id @default(autoincrement())
+  img       String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id          Int        @id @default(autoincrement())
+  email       String     @unique
+  role        Role       @default(USER)
+  hasVerified Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  EmailOtp    EmailOtp[]
+  Session     Session[]
+  Settings    Settings[]
+}
+
+model EmailOtp {
+  id         Int      @id @default(autoincrement())
+  otpCode    String   @unique
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  expiration DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Session {
+  id         Int      @id @default(autoincrement())
+  token      String
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  expiration DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Settings {
+  id               Int      @id @default(autoincrement())
+  workLength       Int      @default(2400)
+  shortBreakLength Int      @default(120)
+  longBreakLength  Int      @default(600)
+  breakSuccessions Int      @default(4)
+  userId           Int
+  user             User     @relation(fields: [userId], references: [id])
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
